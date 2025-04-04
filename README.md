@@ -4,25 +4,51 @@ This project simulates a real-world Terraform state drift issue and demonstrates
 
 ##  Tools Used
 
-- Terraform
-- AWS EC2 t2.micro 
-- AWS Console
-- Git + GitHub
+- **Terraform** (Infrastructure as Code)
+- **AWS EC2** (`t2.micro` via Free Tier)
+- **AWS CLI** and Web Console
+- **Git & GitHub**
 
-##  What It Does
+##  Objective
 
-- Provisions an EC2 instance using Terraform
-- Manually deletes the instance in the AWS Console (simulating state drift)
-- Uses `terraform state rm` to remove the broken reference from Terraform state
-- Redeploys the instance cleanly with `terraform apply`
+Provision an EC2 instance using Terraform, simulate state drift by manually deleting the instance via the AWS Console, and recover the infrastructure using Terraform’s state management workflow.
 
-##  Terraform Workflow
+##  Key Concepts Demonstrated
+
+- Provider configuration and modular `.tf` structure (`main.tf`, `variables.tf`, `outputs.tf`)
+- Understanding and handling Terraform state drift
+- Usage of `terraform state list` and `terraform state rm`
+- Clean re-deployment of drifted infrastructure using `terraform apply`
+- Git best practices and `.gitignore` to prevent large binary files (e.g., `.terraform/`) from polluting the repository
+
+##  Workflow Summary
 
 ```bash
+# Initialize Terraform
 terraform init
+
+# Apply infrastructure (provisions EC2 instance)
 terraform apply
-# Manual deletion of EC2 in AWS Console
-terraform plan              # shows drift
+
+# Simulate state drift by manually deleting the EC2 instance in the AWS Console
+
+# Identify drift
+terraform plan
+
+# Inspect Terraform state
 terraform state list
+
+# Remove orphaned resource from state
 terraform state rm aws_instance.example
-terraform apply             # redeploys instance
+
+# Re-deploy the EC2 instance
+terraform apply
+
+## Project Structure 
+
+terraform-state-recovery-lab/
+├── main.tf
+├── variables.tf
+├── outputs.tf
+├── .gitignore
+└── README.md
