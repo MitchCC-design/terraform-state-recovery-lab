@@ -5,7 +5,7 @@ This project simulates a real-world Terraform state drift issue and demonstrates
 ##  Tools Used
 
 - **Terraform** (Infrastructure as Code)
-- **AWS EC2** (`t2.micro` via Free Tier)
+- **AWS EC2** (`t2.micro')
 - **AWS CLI** and Web Console
 - **Git & GitHub**
 
